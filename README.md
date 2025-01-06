@@ -2,4 +2,4 @@
 
 High level architecture and requirements
 
-![High level architecture](high-level-architecture.excalidraw.png)
+![High level architecture](high-level-architecture.excalidraw.png)![alt text](image.png)
