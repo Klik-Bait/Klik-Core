@@ -1,7 +1,11 @@
 using MessageHandler.Hubs;
+using MessageHandler.MassTransit;
+using MessageHandler.Messaging.Publishers;
+
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
+builder.Services.ConfigureMassTransit(builder.Configuration);
 builder.Services.AddSignalR();
 
 var app = builder.Build();
