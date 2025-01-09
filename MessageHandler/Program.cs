@@ -11,6 +11,7 @@ builder.Services.AddSignalR();
 var app = builder.Build();
 
 app.MapGet("/hc", () => "Healthy!");
+app.MapGet("/health", () => "Healthy!");
 app.MapGet("/health-check", () => "Healthy!");
 
 app.MapHub<ChatHub>("/chatHub");
