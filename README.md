@@ -15,9 +15,21 @@ graph TD
     X -->|Yes| D[(RabbitMQ)]
     X -->|No| R[Redis]
     R -->|TTL exceeds 5 hours| N[NoSQL Database]
+
+    subgraph Authentication
+        H[User Logs In] -->|Validates Credentials| AS[Authentication Service]
+    end
+
+    AS -->|Publishes UserLoggedIn event| MM[MesssageCore.MessageManagement]
+    MM -->|Checks Redis for messages| R
+    MM -->|Checks NoSQL for messages| N
+    R -->|Found messages| D
+    N -->|Found messages| D
     D -->|Consumed by| E[MesssageCore.Sender]
     E -->|Sends message| F(API Gateway)
     F -->|Delivers message| G[Receiver Consumer: Online]
+
+
 
 ```
 
