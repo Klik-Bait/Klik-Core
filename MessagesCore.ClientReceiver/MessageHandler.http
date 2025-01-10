@@ -1,0 +1,6 @@
+@MessageHandler_HostAddress = http://localhost:5193
+
+GET {{MessageHandler_HostAddress}}/health/
+Accept: application/json
+
+###
