@@ -8,7 +8,7 @@ Not all cases are covered for now
 # Message Flow Diagram
 
 ```mermaid
-graph LR
+graph TD
     A[Sender API Consumer: Online] -->|User sender message| B(API Gateway)
     B -->|Forwards message| C[MesssageCore.Receiver]
     C -->|Checks if receiver is active| X{Is Receiver Active?}
@@ -18,6 +18,7 @@ graph LR
     D -->|Consumed by| E[MesssageCore.Sender]
     E -->|Sends message| F(API Gateway)
     F -->|Delivers message| G[Receiver API Consumer: Online]
+
 ```
 
 ## Sender send a massage and receiver is online at the time of sending message 
