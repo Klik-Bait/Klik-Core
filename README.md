@@ -29,8 +29,6 @@ graph TD
     E -->|Sends message| F(API Gateway)
     F -->|Delivers message| G[Receiver Consumer: Online]
 
-
-
 ```
 
 ## Sender send a massage and receiver is online at the time of sending message 
