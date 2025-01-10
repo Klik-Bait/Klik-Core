@@ -10,8 +10,8 @@ Not all cases are covered for now
 ```mermaid
 graph TD
     A[Sender API Consumer] -->|User sender message| B(API Gateway)
-    B -->|Forwards message| C[MesssageCore.Receiver]
-    C -->|Checks if receiver is active| X{Is Receiver Active?}
+    B -->|Forwards message| C[MesssageCore.ClientReceiver]
+    C -->|Checks if receiver is active| X{Receiver user is Active?}
     X -->|Yes| D[(RabbitMQ)]
     X -->|No| R[Redis]
     R -->|TTL exceeds 5 hours| N[NoSQL Database]
@@ -20,12 +20,12 @@ graph TD
         H[User Logs In] -->|Validates Credentials| AS[Authentication Service]
     end
 
-    AS -->|Publishes UserLoggedIn event| MM[MesssageCore.MessageManagement]
+    AS -->|Publishes UserLoggedIn event| MM[MessageCore.MessageManagement]
     MM -->|Checks Redis for messages| R
     MM -->|Checks NoSQL for messages| N
     R -->|Found messages| D
     N -->|Found messages| D
-    D -->|Consumed by| E[MesssageCore.Sender]
+    D -->|Consumed by| E[MesssageCore.ClientSender]
     E -->|Sends message| F(API Gateway)
     F -->|Delivers message| G[Receiver Consumer: Online]
 

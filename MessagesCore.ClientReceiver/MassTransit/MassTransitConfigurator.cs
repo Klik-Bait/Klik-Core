@@ -1,16 +1,13 @@
 using MassTransit;
-using MessageHandler.Messaging.Contracts;
-using MessageHandler.Settings;
 
-namespace MessageHandler.MassTransit;
+namespace MessagesCore.ClientReceiver.MassTransit;
 
 public static class MassTransitConfigurator
 {
     public static IServiceCollection ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
     {
-        var rabbitMqSettings = configuration.GetSection(RabbitMqSettings.Section).Get<RabbitMqSettings>();
-        if (rabbitMqSettings == null)
-            throw new InvalidOperationException("RabbitMQ settings are not configured in appsettings.json.");
+        var rabbitMqSettings = configuration.GetSection(RabbitMqSettings.Section).Get<RabbitMqSettings>()
+            ?? throw new InvalidOperationException("RabbitMQ settings are not configured in appsettings.json.");
         rabbitMqSettings.Validate();
 
         services.AddMassTransit(x =>
@@ -23,11 +20,10 @@ public static class MassTransitConfigurator
                     h.Password(rabbitMqSettings.Password);
                 });
                 
-                cfg.ReceiveEndpoint("chat-queue", e =>
+                cfg.UseMessageRetry(r =>
                 {
-                    e.Bind<ChatMessage>(); 
+                    r.Interval(3, TimeSpan.FromSeconds(10));
                 });
-                
             });
         });
         return services;

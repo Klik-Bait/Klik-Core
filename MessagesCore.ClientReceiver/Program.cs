@@ -1,7 +1,6 @@
-using MessageHandler.Hubs;
-using MessageHandler.MassTransit;
-using MessageHandler.Messaging.Publishers;
-
+using MessagesCore.ClientReceiver.Hubs;
+using MessagesCore.ClientReceiver.MassTransit;
+using MessagesCore.ClientReceiver.Messaging.Publishers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IMessagePublisher, MessagePublisher>();
@@ -11,8 +10,6 @@ builder.Services.AddSignalR();
 var app = builder.Build();
 
 app.MapGet("/hc", () => "Healthy!");
-app.MapGet("/health", () => "Healthy!");
-app.MapGet("/health-check", () => "Healthy!");
 
 app.MapHub<ChatHub>("/chatHub");
 

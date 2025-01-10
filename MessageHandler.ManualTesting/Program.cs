@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MessageCore.Contracts;
+using Microsoft.AspNetCore.SignalR.Client;
 
 var connection = new HubConnectionBuilder()
     .WithUrl("http://localhost:5193/ChatHub")
     .Build();
 
-connection.On<string, string>("ReceiveMessage", (user, message) =>
-{
-    Console.WriteLine($"{user}: {message}");
-});
+
 
 try
 {
@@ -19,6 +17,12 @@ catch (Exception ex)
     Console.WriteLine($"Error connecting to the server: {ex.Message}");
     return;
 }
+
+connection.On<bool>("MessageAcknowledged", (success) =>
+{
+    if(success)
+        Console.WriteLine($"Message was delivered");
+});
 
 // Loop to send messages
 Console.WriteLine("Enter your name:");
@@ -34,9 +38,8 @@ while (true)
 
     try
     {
-        // Send the message to the SignalR hub
-        await connection.InvokeAsync("SendMessage", userName, message);
-        Console.WriteLine("Message sent.");
+        var chatMessage = new ChatMessage(userName ?? "adam", "Adrian" ,message ?? "Typical message" , DateTime.Now);
+        await connection.InvokeAsync("SendMessage", chatMessage);
     }
     catch (Exception ex)
     {

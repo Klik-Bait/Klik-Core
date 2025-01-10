@@ -1,4 +1,4 @@
-namespace MessageHandler.Settings;
+namespace MessagesCore.ClientSender.MassTransit;
 
 public class RabbitMqSettings
 {

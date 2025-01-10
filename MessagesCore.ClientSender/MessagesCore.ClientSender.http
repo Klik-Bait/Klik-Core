@@ -1,0 +1,6 @@
+@MessagesCore.ClientSender_HostAddress = http://localhost:5047
+
+GET {{MessagesCore.ClientSender_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

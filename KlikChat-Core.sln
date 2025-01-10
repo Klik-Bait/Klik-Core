@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageHandler", "MessageHandler\MessageHandler.csproj", "{FBE8A181-7E06-41CB-BE08-2A8D2B0B3DFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagesCore.ClientReceiver", "MessagesCore.ClientReceiver\MessagesCore.ClientReceiver.csproj", "{FBE8A181-7E06-41CB-BE08-2A8D2B0B3DFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B4B9482-BE42-47BC-A5BB-233C26A156A9}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageHandler.ManualTesting", "MessageHandler.ManualTesting\MessageHandler.ManualTesting.csproj", "{A5E0F633-0856-48E8-891A-64EBF7583F9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageSender", "MessageSender\MessageSender.csproj", "{CF983B2B-D625-455F-9131-2B449B1C8580}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageCore.Contracts", "MessageCore.Contracts\MessageCore.Contracts.csproj", "{80480A99-0FE9-4F3D-BF5F-2DF0FD9643BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagesCore.ClientSender", "MessagesCore.ClientSender\MessagesCore.ClientSender.csproj", "{8050AD59-4581-48B4-9DDC-D732FDC02ABE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,10 +30,14 @@ Global
 		{A5E0F633-0856-48E8-891A-64EBF7583F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5E0F633-0856-48E8-891A-64EBF7583F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A5E0F633-0856-48E8-891A-64EBF7583F9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CF983B2B-D625-455F-9131-2B449B1C8580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CF983B2B-D625-455F-9131-2B449B1C8580}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CF983B2B-D625-455F-9131-2B449B1C8580}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CF983B2B-D625-455F-9131-2B449B1C8580}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80480A99-0FE9-4F3D-BF5F-2DF0FD9643BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80480A99-0FE9-4F3D-BF5F-2DF0FD9643BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80480A99-0FE9-4F3D-BF5F-2DF0FD9643BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80480A99-0FE9-4F3D-BF5F-2DF0FD9643BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8050AD59-4581-48B4-9DDC-D732FDC02ABE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8050AD59-4581-48B4-9DDC-D732FDC02ABE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8050AD59-4581-48B4-9DDC-D732FDC02ABE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8050AD59-4581-48B4-9DDC-D732FDC02ABE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
