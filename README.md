@@ -9,23 +9,22 @@ Not all cases are covered for now
 
 ```mermaid
 graph TD
-    A[Sender API Consumer] -->|User sender message| B(API Gateway)
+    A[Sender API Consumer] -->|User sends message| B(API Gateway)
     B -->|Forwards message| C[MesssageCore.ClientReceiver]
     C -->|Checks if receiver is active| X{Receiver user is Active?}
     X -->|Yes| D[(RabbitMQ)]
     X -->|No| R[Redis]
-    R -->|TTL exceeds 5 hours| N[NoSQL Database]
+    R -->|TTL exceeds 5 hours| M[Message Expired]
 
     subgraph Authentication
         H[User Logs In] -->|Validates Credentials| AS[Authentication Service]
     end
 
-    AS -->|Publishes UserLoggedIn event| MM[MessageCore.MessageManagement]
-    MM -->|Checks Redis for messages| R
-    MM -->|Checks NoSQL for messages| N
+    AS -->|Publishes UserLoggedIn event| AF[Azure Function: Message Management]
+    AF -->|Checks Redis for messages| R
     R -->|Found messages| D
-    N -->|Found messages| D
-    D -->|Consumed by| E[MesssageCore.ClientSender]
+
+    D --> E[MesssageCore.ClientSender]
     E -->|Sends message| F(API Gateway)
     F -->|Delivers message| G[Receiver Consumer: Online]
 
