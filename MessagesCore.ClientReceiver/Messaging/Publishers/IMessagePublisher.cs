@@ -4,5 +4,5 @@ namespace MessagesCore.ClientReceiver.Messaging.Publishers;
 
 public interface IMessagePublisher
 {
-    Task<bool> PublishChatMessageAsync(ChatMessage chatMessage);
+    Task<ChatDeliveryResponse> PublishChatMessageAsync(ChatMessage chatMessage);
 }
