@@ -5,8 +5,6 @@ var connection = new HubConnectionBuilder()
     .WithUrl("http://localhost:5193/ChatHub")
     .Build();
 
-
-
 try
 {
     await connection.StartAsync();
@@ -18,15 +16,20 @@ catch (Exception ex)
     return;
 }
 
-connection.On<bool>("MessageAcknowledged", (success) =>
+connection.On<ChatDeliveryResponse>("MessageAcknowledged", (chatDelivery) =>
 {
-    if(success)
-        Console.WriteLine($"Message was delivered");
+    if(chatDelivery.IsDelivered)
+        Console.WriteLine($"Message was delivered to {chatDelivery.Receiver.Name}");
 });
 
 // Loop to send messages
-Console.WriteLine("Enter your name:");
-var userName = Console.ReadLine();
+Console.WriteLine("Enter your name: (default: Krystian)");
+var senderConsoleResult = Console.ReadLine();
+var senderUserName = string.IsNullOrWhiteSpace(senderConsoleResult) ? "Krystian" : senderConsoleResult.Trim();
+
+Console.WriteLine("Enter receiver name: (default: Adrian)");
+var receiverConsoleResult = Console.ReadLine();
+var receiverUserName = string.IsNullOrWhiteSpace(receiverConsoleResult) ? "Adrian" : receiverConsoleResult.Trim();
 
 while (true)
 {
@@ -38,7 +41,7 @@ while (true)
 
     try
     {
-        var chatMessage = new ChatMessage(userName ?? "adam", "Adrian" ,message ?? "Typical message" , DateTime.Now);
+        var chatMessage = new ChatMessage(new User(senderUserName) , new User(receiverUserName), message!, DateTime.Now);
         await connection.InvokeAsync("SendMessage", chatMessage);
     }
     catch (Exception ex)

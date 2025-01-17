@@ -1,11 +1,26 @@
 ﻿services:
-  message-handler:
-    image: messagehandler
-    build:
-      context: .
-      dockerfile: MessageHandler/Dockerfile
-  message-handler-manual-testing:
-    image: messagehandlermanualtesting
-    build:
-      context: .
-      dockerfile: MessageHandler.ManualTesting/Dockerfile
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # RabbitMQ protocol
+      - "15672:15672"  # RabbitMQ Management UI
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    ports:
+      - "5540:5540"
+    restart: always
+    depends_on:
+      - redis
