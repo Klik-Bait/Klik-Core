@@ -39,7 +39,7 @@ graph TD
 ## Keeping track of users active status
 ``` mermaid
 graph TD
-    A[Sender API Consumer]
+    A[Client]
     A -->|Login/Logout Request| B(API Gateway)
     B -->|no auth for now| C[MesssageCore.ClientReceiver]
     C -->|Update Login Status| D[Redis]
@@ -50,6 +50,9 @@ graph TD
 
 ### User logged out
 * Microservice "MesssageCore.ClientReceiver" update user status in redis to "not active"
+
+#### things to consider:
+* Use client Heartbeat to check if connection is still valid. I guess Sliding TTL would be the best?
 
 ## Send undelivered messages
 
